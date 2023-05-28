@@ -148,7 +148,9 @@ to simplify the use of the <code>StaticHtmlCache</code> class. The following fun
     </tr>
 </table>
 <h2 id="examples">Examples</h2>
-<pre><code>&lt;?php
+
+````
+<?php
 namespace App\Http\Controllers;
 
 use Caujasutom\LaravelOptimizer\LaravelOptimizer;
@@ -157,11 +159,11 @@ use Illuminate\Support\Facades\View;
 
 class ArticlesController extends Controller
 {
-/**
-&ast; Display a listing of articles.
-&ast; 
-&ast; @return \Illuminate\Http\Response
-*/
+    /**
+    &ast; Display a listing of articles.
+    &ast; 
+    &ast; @return \Illuminate\Http\Response
+    */
     public function index()
     {
     // Check if cached HTML content exists for this URL
@@ -179,7 +181,8 @@ class ArticlesController extends Controller
         return response($htmlContent);
           }
       }
-  }</code></pre>
+  }
+````
 <p>In this example, we have an <code>ArticlesController</code> with an <code>index</code> function. This function is responsible for displaying a listing of articles.</p>
 <p>Here's the breakdown of the function:</p>
 <ol>
