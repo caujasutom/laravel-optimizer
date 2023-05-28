@@ -11,7 +11,6 @@ The Laravel Optimizer package is a collection of middlewares and helpers designe
         <ol>  
             <li><a href="#html-minify-middleware">HTML Minify Middleware</a></li>  
             <li><a href="#static-html-cache-middleware">Static HTML Cache Middleware</a></li>  
-            <li><a href="#image-optimizer-middleware">Image Optimizer Middleware</a></li>  
             <li><a href="#gzip-compression-middleware">Gzip Compression Middleware</a></li>  
         </ol>  
     </li>
@@ -31,9 +30,6 @@ settings for the package. You can modify these settings to suit your needs.
 <pre><code>&lt;?php 
 return [
     // ...
-    'image_optimization' => [
-        'quality' => 85, // Default image quality for optimization.
-    ],
     'gzip_compression' => [
         'level' => 9, // Default compression level for Gzip.
     ],
@@ -58,19 +54,7 @@ file. </p>
 <p>
 The number (60 in the example above) represents the cache duration
 in minutes. Adjust this value as needed.
-</p>  
-<h3 id="image-optimizer-middleware">3. Image Optimizer Middleware</h3>  
-<p>
-The <code>ImageOptimizerMiddleware</code> optimizes images by compressing them without losing quality. To use this middleware,  
-add it to your <code>app/Http/Kernel.php</code> file.
-</p>  
-<pre><code>protected $middlewareGroups = [
-    'web' => [
-        // ...
-        \Caujasutom\LaravelOptimizer\Middleware\ImageOptimizerMiddleware::class,
-        ],
-    // ... 
-];</code></pre>  
+</p>
 <h3 id="gzip-compression-middleware">4. Gzip Compression Middleware</h3>  
 <p>
 The <code>GzipCompressionMiddleware</code> compresses the response content using Gzip compression. To use this middleware, add it to your <code>app/Http/Kernel.php</code> file.
