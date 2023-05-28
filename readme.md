@@ -160,28 +160,36 @@ use Illuminate\Support\Facades\View;
 class ArticlesController extends Controller
 {
     /**
-    &ast; Display a listing of articles.
-    &ast; 
-    &ast; @return \Illuminate\Http\Response
+    * Display a listing of articles.
+    * 
+    * @return \Illuminate\Http\Response
     */
+    
     public function index()
     {
+    
     // Check if cached HTML content exists for this URL
     $cachedContent = LaravelOptimizer::cache()-&gt;retrieve(request()-&gt;url());
     if ($cachedContent) {
+    
         // If cached content exists, return it
         return response($cachedContent);
+        
     } else {
+    
         // If cached content doesn't exist, generate and cache new content
         $articles = Post::all() // Fetch articles from the database or any other source
+        
         // Render the articles view
         $htmlContent = View::make('articles.index', ['articles' =&gt; $articles])-&gt;render();
+        
         // Cache the generated HTML content for this URL
         LaravelOptimizer::cache()-&gt;store(request()-&gt;url(), $htmlContent);
+        
         return response($htmlContent);
-          }
-      }
-  }
+        }
+    }
+}
 ````
 <p>In this example, we have an <code>ArticlesController</code> with an <code>index</code> function. This function is responsible for displaying a listing of articles.</p>
 <p>Here's the breakdown of the function:</p>
