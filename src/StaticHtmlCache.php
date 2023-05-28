@@ -19,6 +19,14 @@ class StaticHtmlCache
         return new self();
     }
 
+    /**
+     * Stores the generated HTML content for the given URL.
+     *
+     * @param string $url The URL for which the HTML content is generated.
+     * @param string $content The HTML content to be cached.
+     * @param int|null $minutes The duration in minutes for which the content should be cached. If not provided, the default environment value will be used.
+     * @return void
+     */
     public function store(string $url, string $content, int $minutes = null): void
     {
         if ($minutes) {
@@ -29,6 +37,12 @@ class StaticHtmlCache
         Storage::put($cacheKey, $minifiedContent, $minutes);
     }
 
+    /**
+     * Generates the cache key for a given URL.
+     *
+     * @param string $url The URL for which to generate the cache key.
+     * @return string The cache key for the given URL.
+     */
     public static function getCacheKey(string $url): string
     {
         return 'static_cache/' . md5($url) . '.html';
@@ -55,6 +69,12 @@ class StaticHtmlCache
         return preg_replace($search, $replace, $content);
     }
 
+    /**
+     * Retrieves the cached HTML content for the given URL.
+     *
+     * @param string $url The URL for which to retrieve the cached HTML content.
+     * @return string|null The cached HTML content for the given URL, or null if it doesn't exist.
+     */
     public function retrieve(string $url): ?string
     {
         $cacheKey = self::getCacheKey($url);
@@ -66,6 +86,12 @@ class StaticHtmlCache
         return null;
     }
 
+    /**
+     * Deletes the cached HTML content for the given URL.
+     *
+     * @param string $url The URL for which to delete the cached HTML content.
+     * @return void
+     */
     public function delete(string $url): void
     {
         $cacheKey = self::getCacheKey($url);
