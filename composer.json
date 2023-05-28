@@ -17,9 +17,11 @@
     },
     "autoload": {
         "psr-4": {
-            "Caujasutom\\LaravelOptimizer\\": "src/",
-            "files": ["src/helpers.php"]
-        }
+            "Caujasutom\\LaravelOptimizer\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "extra": {
         "laravel": {
