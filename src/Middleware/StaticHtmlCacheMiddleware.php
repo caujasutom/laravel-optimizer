@@ -2,15 +2,15 @@
 
 namespace Caujasutom\LaravelOptimizer\Middleware;
 
+use Caujasutom\LaravelOptimizer\Facades\LaravelOptimizer;
 use Closure;
-use Caujasutom\LaravelOptimizer\StaticHtmlCache;
 
 class StaticHtmlCacheMiddleware
 {
-    public function handle($request, Closure $next, int $ttl = null)
+    public function handle($request, Closure $next, int $minutes = null)
     {
         $url = $request->url();
-        $cachedContent = StaticHtmlCache::retrieve($url);
+        $cachedContent = LaravelOptimizer::retrieve($url);
 
         if ($cachedContent) {
             return response($cachedContent);
@@ -19,7 +19,7 @@ class StaticHtmlCacheMiddleware
         $response = $next($request);
         $content = $response->getContent();
 
-        StaticHtmlCache::store($url, $content, $ttl);
+        LaravelOptimizer::store($url, $content, $minutes);
 
         return $response;
     }

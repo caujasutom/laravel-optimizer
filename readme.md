@@ -1,6 +1,6 @@
 <h1>Laravel Optimizer Package</h1>  
 <p>
-The Laravel Optimizer package is a collection of middlewares and helpers designed to optimize and improve the performance of your Laravel applications. It includes HTML minification,  static HTML caching, image optimization, and Gzip compression.
+The Laravel Optimizer package is a collection of middlewares and helpers designed to optimize and improve the performance of your Laravel applications. It includes HTML minification,  static HTML caching, and Gzip compression.
 </p>  
 <h2>Table of Contents</h2>  
 <ol>  
