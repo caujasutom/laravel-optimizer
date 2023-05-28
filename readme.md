@@ -28,7 +28,7 @@ The Laravel Optimizer package is a collection of middlewares and helpers designe
 The configuration file <code>config/laravel_optimizer.php</code> contains the default  
 settings for the package. You can modify these settings to suit your needs.
 </p>  
-<pre><code><?php 
+<pre><code>&lt;?php 
 return [
     // ...
     'gzip_compression' => [
