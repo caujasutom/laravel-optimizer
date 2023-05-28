@@ -1,0 +1,30 @@
+{
+    "name": "caujasutom/laravel-optimizer",
+    "description": "A lightweight Laravel package to optimize and improve performance by minifying HTML, caching, and more.",
+    "type": "composer-plugin",
+    "authors": [
+        {
+            "name": "caujasutom"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "illuminate/support": "^8.0|^9.0",
+      "ext-zlib": "*"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    },
+    "autoload": {
+        "psr-4": {
+            "Caujasutom\\LaravelOptimizer\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Caujasutom\\LaravelOptimizer\\LaravelOptimizerServiceProvider"
+            ]
+        }
+    }
+}
