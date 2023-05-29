@@ -15,6 +15,7 @@
     "require-dev": {
         "roave/security-advisories": "dev-latest"
     },
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "Caujasutom\\LaravelOptimizer\\": "src/"
