@@ -78,7 +78,7 @@ to simplify the use of the <code>StaticHtmlCache</code> class. The following fun
 </p>
 <h3><code>LaravelOptimizer::cache()->store()</code></h3>
 <p>Stores the generated HTML content for the given URL.</p>
-<pre><code>LaravelOptimizer::cache()->;store($url, $content, $minutes = null);</code></pre>
+<pre><code>LaravelOptimizer::cache()->store($url, $content, $minutes = null);</code></pre>
 <p>Parameters:</p>
 <table>
     <tr>
@@ -105,7 +105,7 @@ to simplify the use of the <code>StaticHtmlCache</code> class. The following fun
 
 <h3><code>LaravelOptimizer::cache()->retrieve($url)</code></h3>
 <p>Retrieves the cached HTML content for the given URL.</p>
-<pre><code>LaravelOptimizer::cache()->;retrieve($url);</code></pre>
+<pre><code>LaravelOptimizer::cache()->retrieve($url);</code></pre>
 <p>Parameters:</p>
 <table>
     <tr>
@@ -133,7 +133,7 @@ to simplify the use of the <code>StaticHtmlCache</code> class. The following fun
 
 <h3><code>LaravelOptimizer::cache()->delete($url)</code></h3>
 <p>Deletes the cached HTML content for the given URL.</p>
-<pre><code>LaravelOptimizer::cache()->;delete($url);</code></pre>
+<pre><code>LaravelOptimizer::cache()->delete($url);</code></pre>
 <p>Parameters:</p>
 <table>
     <tr>
@@ -169,7 +169,7 @@ class ArticlesController extends Controller
     {
     
     // Check if cached HTML content exists for this URL
-    $cachedContent = LaravelOptimizer::cache()->;retrieve(request()->;url());
+    $cachedContent = LaravelOptimizer::cache()->retrieve(request()->url());
     if ($cachedContent) {
     
         // If cached content exists, return it
@@ -181,10 +181,10 @@ class ArticlesController extends Controller
         $articles = Post::all() // Fetch articles from the database or any other source
         
         // Render the articles view
-        $htmlContent = View::make('articles.index', ['articles' =>; $articles])->;render();
+        $htmlContent = View::make('articles.index', ['articles' => $articles])->render();
         
         // Cache the generated HTML content for this URL
-        LaravelOptimizer::cache()->;store(request()->;url(), $htmlContent);
+        LaravelOptimizer::cache()->store(request()->url(), $htmlContent);
         
         return response($htmlContent);
         }
@@ -194,11 +194,11 @@ class ArticlesController extends Controller
 <p>In this example, we have an <code>ArticlesController</code> with an <code>index</code> function. This function is responsible for displaying a listing of articles.</p>
 <p>Here's the breakdown of the function:</p>
 <ol>
-    <li>First, it checks if there is cached HTML content available for the current URL using the <code>LaravelOptimizer::cache()->;retrieve(request()->;url())</code> method.</li>
+    <li>First, it checks if there is cached HTML content available for the current URL using the <code>LaravelOptimizer::cache()->retrieve(request()->url())</code> method.</li>
     <li>If cached content exists, it returns the cached HTML content as the response.</li>
     <li>If cached content doesn't exist, it fetches the articles from the database or any other source.</li>
     <li>It then renders the <code>articles.index</code> view with the fetched articles using <code>View::make()</code> and <code>render()</code> methods.</li>
     <li>The generated HTML content is stored in the variable <code>$htmlContent</code>.</li>
-    <li>The generated HTML content is cached using <code>LaravelOptimizer::cache()->;store(request()->;url(), $htmlContent)</code> method.</li>
+    <li>The generated HTML content is cached using <code>LaravelOptimizer::cache()->store(request()->url(), $htmlContent)</code> method.</li>
     <li>Finally, it returns the generated HTML content as the response.</li>
 </ol>
