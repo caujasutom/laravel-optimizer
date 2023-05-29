@@ -8,8 +8,8 @@
         }
     ],
     "require": {
-        "php": "^7.0",
-        "illuminate/support": "^8.0",
+        "php": "^7.0 || ^8.0",
+        "illuminate/support": "^8.0 || ^9.0 || ^10.0",
         "ext-zlib": "*"
     },
     "require-dev": {
