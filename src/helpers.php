@@ -2,6 +2,7 @@
 
 use Caujasutom\LaravelOptimizer\StaticHtmlCache;
 
+// Store static cache for a given URL and content.
 if (!function_exists('store_static_cache')) {
     function store_static_cache(string $url, string $content, int $minutes = null): void
     {
@@ -9,6 +10,7 @@ if (!function_exists('store_static_cache')) {
     }
 }
 
+// Retrieve static cache for a given URL.
 if (!function_exists('retrieve_static_cache')) {
     function retrieve_static_cache(string $url): ?string
     {
@@ -16,6 +18,7 @@ if (!function_exists('retrieve_static_cache')) {
     }
 }
 
+// Delete static cache for a given URL.
 if (!function_exists('delete_static_cache')) {
     function delete_static_cache(string $url): void
     {

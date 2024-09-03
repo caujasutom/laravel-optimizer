@@ -2,17 +2,19 @@
 
 namespace Caujasutom\LaravelOptimizer;
 
+use Caujasutom\LaravelOptimizer\Middleware\HtmlMinifyMiddleware;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Class StaticHtmlCache
+ * Handles caching of static HTML content.
+ */
 class StaticHtmlCache
 {
     /**
-     * Class StaticHtmlCache
-     * @package Caujasutom\LaravelOptimizer
+     * Get a new instance of the StaticHtmlCache.
      *
-     * @method void store(string $url, string $content, int $minutes = null)
-     * @method string|null retrieve(string $url)
-     * @method void delete(string $url)
+     * @return StaticHtmlCache
      */
     public static function cache(): StaticHtmlCache
     {
@@ -20,60 +22,42 @@ class StaticHtmlCache
     }
 
     /**
-     * Stores the generated HTML content for the given URL.
+     * Store the generated HTML content for the given URL.
      *
      * @param string $url The URL for which the HTML content is generated.
      * @param string $content The HTML content to be cached.
-     * @param int|null $minutes The duration in minutes for which the content should be cached. If not provided, the default environment value will be used.
+     * @param int|null $minutes The duration in minutes for which the content should be cached.
      * @return void
      */
-    public function store(string $url, string $content, int $minutes = null): void
+    public function store(string $url, string $content, ?int $minutes = null): void
     {
-        if ($minutes) {
-            $minutes = $minutes * 60;
-        }
+        $minutes = $minutes ?? config('laravel_optimizer.static_cache_ttl');
         $cacheKey = self::getCacheKey($url);
-        $minifiedContent = self::minifyHtml($content);
-        Storage::put($cacheKey, $minifiedContent, $minutes);
+
+        $minifiedContent = config('laravel_optimizer.minification.enabled')
+            ? (new HtmlMinifyMiddleware())->minifyContent($content)
+            : $content;
+
+        Storage::put($cacheKey, $minifiedContent, ['visibility' => 'public']);
     }
 
     /**
-     * Generates the cache key for a given URL.
+     * Generate the cache key for a given URL.
      *
      * @param string $url The URL for which to generate the cache key.
      * @return string The cache key for the given URL.
      */
     public static function getCacheKey(string $url): string
     {
-        return 'static_cache/' . md5($url) . '.html';
-    }
-
-    public static function minifyHtml(string $content): string
-    {
-        $search = [
-            '/>\s+/s',
-            '/\s+</s',
-            '/(\s)+/s',
-            '/>\s+</',
-            '/[\r\n]+/'
-        ];
-
-        $replace = [
-            '>',
-            '<',
-            '\\1',
-            '><',
-            ''
-        ];
-
-        return preg_replace($search, $replace, $content);
+        $cachePath = config('laravel_optimizer.cache_path');
+        return $cachePath . md5($url) . '.html';
     }
 
     /**
-     * Retrieves the cached HTML content for the given URL.
+     * Retrieve the cached HTML content for the given URL.
      *
      * @param string $url The URL for which to retrieve the cached HTML content.
-     * @return string|null The cached HTML content for the given URL, or null if it doesn't exist.
+     * @return string|null The cached HTML content, or null if it doesn't exist.
      */
     public function retrieve(string $url): ?string
     {
@@ -87,7 +71,7 @@ class StaticHtmlCache
     }
 
     /**
-     * Deletes the cached HTML content for the given URL.
+     * Delete the cached HTML content for the given URL.
      *
      * @param string $url The URL for which to delete the cached HTML content.
      * @return void
